@@ -18,7 +18,7 @@ class OrderServiceTest {
     public void testAddOrder(){
         //Given
         OrderService testOrderService = new OrderService(getProductDb(), getOrderDb());
-        Order expectedOrder = new Order("200", new Product[]{getProductDb().getProduct("100")});
+        Order expectedOrder = new Order("200", new Product[]{getProductDb().getProduct("100").get()});
 
         // When
         testOrderService.addOrder("200", new String[]{"100"});
@@ -29,13 +29,26 @@ class OrderServiceTest {
     }
 
     @Test
+    public void testAddOrderWithNonExistingProducts(){
+        // Given
+        OrderService testOrderService = new OrderService(getProductDb(), getOrderDb());
+
+        try {
+            testOrderService.addOrder("300", new String[]{"100", "300"});
+            fail();
+        } catch (Exception exception) {
+            assertEquals("This product does not exist", exception.getMessage());
+        }
+    }
+
+    @Test
     public void testListOrders(){
         //Given
         OrderService testOrderService = new OrderService(getProductDb(), getOrderDb());
         ArrayList<Order> expectedOrderList = new ArrayList<Order>(List.of(
-                new Order("100", new Product[]{getProductDb().getProduct("100"), getProductDb().getProduct("101")}),
-                new Order("101", new Product[]{getProductDb().getProduct("102"), getProductDb().getProduct("103")}),
-                new Order("102", new Product[]{getProductDb().getProduct("104")})
+                new Order("100", new Product[]{getProductDb().getProduct("100").get(), getProductDb().getProduct("101").get()}),
+                new Order("101", new Product[]{getProductDb().getProduct("102").get(), getProductDb().getProduct("103").get()}),
+                new Order("102", new Product[]{getProductDb().getProduct("104").get()})
         ));
 
         // When
@@ -69,9 +82,9 @@ class OrderServiceTest {
     private static OrderDb getOrderDb(){
 
         HashMap<String, Order> testOrderHashMap = new HashMap<String, Order>(){{
-            put("1000", new Order("100", new Product[]{getProductDb().getProduct("100"), getProductDb().getProduct("101")}));
-            put("1001", new Order("101", new Product[]{getProductDb().getProduct("102"), getProductDb().getProduct("103")}));
-            put("1002", new Order("102", new Product[]{getProductDb().getProduct("104")}));
+            put("1000", new Order("100", new Product[]{getProductDb().getProduct("100").get(), getProductDb().getProduct("101").get()}));
+            put("1001", new Order("101", new Product[]{getProductDb().getProduct("102").get(), getProductDb().getProduct("103").get()}));
+            put("1002", new Order("102", new Product[]{getProductDb().getProduct("104").get()}));
         }};
 
         return new OrderDb(testOrderHashMap);

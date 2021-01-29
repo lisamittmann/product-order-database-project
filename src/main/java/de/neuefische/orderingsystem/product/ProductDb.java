@@ -1,6 +1,7 @@
 package de.neuefische.orderingsystem.product;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ProductDb {
 
@@ -14,15 +15,14 @@ public class ProductDb {
         return this.productList;
     }
 
-    public Product getProduct(String id) {
+    public Optional<Product> getProduct(String id) {
 
         for (Product product : this.productList) {
             if (product.getId().equals(id)) {
-                return product;
+                return Optional.of(product);
             }
         }
-        throw new IllegalArgumentException("Product not found in database");
-
+        return Optional.empty();
     }
 
 

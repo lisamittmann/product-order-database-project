@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDbTest {
 
@@ -38,10 +38,10 @@ class ProductDbTest {
         Product expectedProduct = new Product("103", "Hoodie");
 
         // When
-        Product actualProduct = testDb.getProduct(productId);
+        Optional<Product> actualProduct = testDb.getProduct(productId);
 
         // Then
-        assertEquals(expectedProduct, actualProduct);
+        assertEquals(expectedProduct, actualProduct.get());
 
     }
 
@@ -52,13 +52,10 @@ class ProductDbTest {
         String productId = "203";
 
         // When
-        try {
-            testDb.getProduct(productId);
-            fail();
-        } catch(Exception exception){
-            // Then
-            assertEquals("Product not found in database", exception.getMessage());
-        }
+        Optional<Product> actualProduct = testDb.getProduct(productId);
+
+        //Then
+        assertTrue(actualProduct.isEmpty());
 
     }
 

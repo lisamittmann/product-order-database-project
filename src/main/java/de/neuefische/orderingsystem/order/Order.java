@@ -16,13 +16,6 @@ public class Order {
         this.orderedProducts = orderedProducts;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Product[] getOrderedProducts() {
-        return orderedProducts;
-    }
 
 
     @Override
