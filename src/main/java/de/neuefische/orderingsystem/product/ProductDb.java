@@ -10,7 +10,7 @@ public class ProductDb {
         this.productList = productList;
     }
 
-    public ArrayList<Product> getProductList() {
+    public ArrayList<Product> listProducts() {
         return this.productList;
     }
 

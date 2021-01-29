@@ -13,9 +13,11 @@ public class AppMain {
 
     public static void main(String[] args) {
 
-        System.out.println(getProductDb().getProductList());
+        OrderService orderService = new OrderService(getProductDb(), getOrderDb());
 
-        System.out.println(getOrderDb().listOrders());
+        System.out.println(orderService.listProducts());
+
+        System.out.println(orderService.listOrders());
 
 
     }
