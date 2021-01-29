@@ -2,6 +2,7 @@ package de.neuefische.orderingsystem;
 
 import de.neuefische.orderingsystem.order.Order;
 import de.neuefische.orderingsystem.order.OrderDb;
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 import de.neuefische.orderingsystem.product.ProductDb;
 
@@ -33,7 +34,7 @@ public class OrderService {
             }
         }
 
-        Order newOrder = new Order(orderId,orderedProducts);
+        Order newOrder = new Order(orderId, orderedProducts);
         this.orderDb.addOrder(newOrder);
 
     }

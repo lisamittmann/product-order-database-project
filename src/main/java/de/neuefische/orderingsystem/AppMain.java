@@ -2,6 +2,7 @@ package de.neuefische.orderingsystem;
 
 import de.neuefische.orderingsystem.order.Order;
 import de.neuefische.orderingsystem.order.OrderDb;
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 import de.neuefische.orderingsystem.product.ProductDb;
 
@@ -36,11 +37,11 @@ public class AppMain {
 
     private static ProductDb getProductDb(){
         return new ProductDb(new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks")
         )));
     }
 }

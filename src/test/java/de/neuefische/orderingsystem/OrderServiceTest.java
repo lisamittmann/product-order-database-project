@@ -2,6 +2,7 @@ package de.neuefische.orderingsystem;
 
 import de.neuefische.orderingsystem.order.Order;
 import de.neuefische.orderingsystem.order.OrderDb;
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 import de.neuefische.orderingsystem.product.ProductDb;
 import org.junit.jupiter.api.Test;
@@ -64,19 +65,19 @@ class OrderServiceTest {
     public void testListProducts(){
         //Given
         OrderService testOrderService = new OrderService(getProductDb(), getOrderDb());
-        ArrayList<Product> expectedProductList = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+        ArrayList<Clothing> expectedClothingList = new ArrayList<Clothing>(List.of(
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks")
         ));
 
         // When
-        ArrayList<Product> actualProductList = testOrderService.listProducts();
+        ArrayList<Product> actualClothingList = testOrderService.listProducts();
 
         // Then
-        assertEquals(expectedProductList, actualProductList);
+        assertEquals(expectedClothingList, actualClothingList);
     }
 
     private static OrderDb getOrderDb(){
@@ -93,11 +94,11 @@ class OrderServiceTest {
 
     private static ProductDb getProductDb() {
         ArrayList<Product> testProducts = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks")
         ));
 
         return new ProductDb(testProducts);

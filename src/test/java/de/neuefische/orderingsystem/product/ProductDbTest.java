@@ -15,11 +15,12 @@ class ProductDbTest {
         //Given
         ProductDb testDb = getProductDb();
         ArrayList<Product> expectedProductList = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks"),
+                new Furniture("600", "Sofa")
         ));
 
         // When
@@ -35,13 +36,13 @@ class ProductDbTest {
         //Given
         ProductDb testDb = getProductDb();
         String productId = "103";
-        Product expectedProduct = new Product("103", "Hoodie");
+        Clothing expectedClothing = new Clothing("103", "Hoodie");
 
         // When
         Optional<Product> actualProduct = testDb.getProduct(productId);
 
         // Then
-        assertEquals(expectedProduct, actualProduct.get());
+        assertEquals(expectedClothing, actualProduct.get());
 
     }
 
@@ -60,15 +61,16 @@ class ProductDbTest {
     }
 
     private static ProductDb getProductDb() {
-        ArrayList<Product> testProducts = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+        ArrayList<Product> testClothings = new ArrayList<Product>(List.of(
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks"),
+                new Furniture("600", "Sofa")
         ));
 
-        return new ProductDb(testProducts);
+        return new ProductDb(testClothings);
     }
 
 }

@@ -1,5 +1,6 @@
 package de.neuefische.orderingsystem.order;
 
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 
 import java.util.Arrays;
