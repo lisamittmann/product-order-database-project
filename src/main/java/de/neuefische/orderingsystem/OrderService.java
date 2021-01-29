@@ -2,6 +2,7 @@ package de.neuefische.orderingsystem;
 
 import de.neuefische.orderingsystem.order.Order;
 import de.neuefische.orderingsystem.order.OrderDb;
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 import de.neuefische.orderingsystem.product.ProductDb;
 
@@ -17,30 +18,23 @@ public class OrderService {
         this.orderDb = orderDb;
     }
 
-    public ProductDb getProductDb() {
-        return productDb;
-    }
-
-    public void setProductDb(ProductDb productDb) {
-        this.productDb = productDb;
-    }
-
     public OrderDb getOrderDb() {
         return orderDb;
     }
 
-    public void setOrderDb(OrderDb orderDb) {
-        this.orderDb = orderDb;
-    }
 
     public void addOrder(String orderId, String[] productIds){
 
         Product[] orderedProducts = new Product[productIds.length];
         for (int i = 0; i < productIds.length; i++) {
-            orderedProducts[i] = this.productDb.getProduct(productIds[i]);
+            if(this.productDb.getProduct(productIds[i]).isPresent()) {
+                orderedProducts[i] = this.productDb.getProduct(productIds[i]).get();
+            } else {
+                throw new IllegalArgumentException("This product does not exist");
+            }
         }
 
-        Order newOrder = new Order(orderId,orderedProducts);
+        Order newOrder = new Order(orderId, orderedProducts);
         this.orderDb.addOrder(newOrder);
 
     }

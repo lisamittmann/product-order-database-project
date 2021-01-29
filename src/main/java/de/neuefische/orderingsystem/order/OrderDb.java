@@ -2,6 +2,7 @@ package de.neuefische.orderingsystem.order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class OrderDb {
 
@@ -21,11 +22,11 @@ public class OrderDb {
         return orderArrayList;
     }
 
-    public Order getOrder(String id) {
+    public Optional<Order> getOrder(String id) {
         if(this.orderList.containsKey(id)) {
-            return this.orderList.get(id);
+            return Optional.of(this.orderList.get(id));
         } else {
-            throw new IllegalArgumentException("This order does not exist");
+            return Optional.empty();
         }
     }
 

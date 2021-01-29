@@ -1,5 +1,6 @@
 package de.neuefische.orderingsystem.order;
 
+import de.neuefische.orderingsystem.product.Clothing;
 import de.neuefische.orderingsystem.product.Product;
 
 import java.util.Arrays;
@@ -16,13 +17,6 @@ public class Order {
         this.orderedProducts = orderedProducts;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Product[] getOrderedProducts() {
-        return orderedProducts;
-    }
 
 
     @Override

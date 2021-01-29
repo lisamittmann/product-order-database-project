@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDbTest {
 
@@ -15,11 +15,12 @@ class ProductDbTest {
         //Given
         ProductDb testDb = getProductDb();
         ArrayList<Product> expectedProductList = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks"),
+                new Furniture("600", "Sofa")
         ));
 
         // When
@@ -35,13 +36,13 @@ class ProductDbTest {
         //Given
         ProductDb testDb = getProductDb();
         String productId = "103";
-        Product expectedProduct = new Product("103", "Hoodie");
+        Clothing expectedClothing = new Clothing("103", "Hoodie");
 
         // When
-        Product actualProduct = testDb.getProduct(productId);
+        Optional<Product> actualProduct = testDb.getProduct(productId);
 
         // Then
-        assertEquals(expectedProduct, actualProduct);
+        assertEquals(expectedClothing, actualProduct.get());
 
     }
 
@@ -52,26 +53,24 @@ class ProductDbTest {
         String productId = "203";
 
         // When
-        try {
-            testDb.getProduct(productId);
-            fail();
-        } catch(Exception exception){
-            // Then
-            assertEquals("Product not found in database", exception.getMessage());
-        }
+        Optional<Product> actualProduct = testDb.getProduct(productId);
+
+        //Then
+        assertTrue(actualProduct.isEmpty());
 
     }
 
     private static ProductDb getProductDb() {
-        ArrayList<Product> testProducts = new ArrayList<Product>(List.of(
-                new Product("100", "Dress"),
-                new Product("101", "Jeans"),
-                new Product("102", "Tshirt"),
-                new Product("103", "Hoodie"),
-                new Product("104", "Socks")
+        ArrayList<Product> testClothings = new ArrayList<Product>(List.of(
+                new Clothing("100", "Dress"),
+                new Clothing("101", "Jeans"),
+                new Clothing("102", "Tshirt"),
+                new Clothing("103", "Hoodie"),
+                new Clothing("104", "Socks"),
+                new Furniture("600", "Sofa")
         ));
 
-        return new ProductDb(testProducts);
+        return new ProductDb(testClothings);
     }
 
 }
