@@ -10,32 +10,22 @@ public class ProductDb {
         this.productList = productList;
     }
 
-    public ArrayList<Product> getProductList() {
+    public ArrayList<Product> listProducts() {
         return this.productList;
     }
 
     public Product getProduct(String id) {
 
-        if (!this.containsProduct(id)) {
-            throw new IllegalArgumentException("Product not found in database");
-        } else {
-            for (Product product : this.productList) {
-                if (product.getId().equals(id)) {
-                    return product;
-                }
-            }
-        }
-        return null;
-    }
-
-    private boolean containsProduct(String id) {
         for (Product product : this.productList) {
             if (product.getId().equals(id)) {
-                return true;
+                return product;
             }
         }
-        return false;
+        throw new IllegalArgumentException("Product not found in database");
+
     }
+
+
 
     @Override
     public String toString() {

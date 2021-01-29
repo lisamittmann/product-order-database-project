@@ -1,0 +1,103 @@
+package de.neuefische.orderingsystem.order;
+
+import de.neuefische.orderingsystem.product.Product;
+import de.neuefische.orderingsystem.product.ProductDb;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+import java.security.ProtectionDomain;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class OrderDbTest {
+
+    @Test
+    public void testListOrders(){
+        //Given
+        OrderDb testOrderDb = getOrderDb();
+        ArrayList<Order> expectedOrderList = new ArrayList<Order>(List.of(
+                new Order("100", new Product[]{getProductDb().getProduct("100"), getProductDb().getProduct("101")}),
+                new Order("101", new Product[]{getProductDb().getProduct("102"), getProductDb().getProduct("103")}),
+                new Order("102", new Product[]{getProductDb().getProduct("104")})
+        ));
+
+        // When
+        ArrayList<Order> actualOrderList = testOrderDb.listOrders();
+
+        // Then
+        assertTrue(expectedOrderList.size() == actualOrderList.size());
+        assertTrue(expectedOrderList.containsAll(actualOrderList));
+        assertTrue(actualOrderList.containsAll(expectedOrderList));
+    }
+
+    @Test
+    public void testGetOrder(){
+        // Given
+        OrderDb testOrderDb = getOrderDb();
+        String testOrderId = "1000";
+        Order expectedOrder = new Order("100", new Product[]{getProductDb().getProduct("100"), getProductDb().getProduct("101")});
+
+        // When
+        Order testOrder = testOrderDb.getOrder(testOrderId);
+
+        //Then
+        assertEquals(expectedOrder, testOrder);
+
+    }
+
+    @Test
+    public void testGetOrderWithNonExistingOrder(){
+        // Given
+        OrderDb testOrderDb = getOrderDb();
+        String testOrderId = "2000";
+
+        try {
+            // When
+            testOrderDb.getOrder(testOrderId);
+            fail();
+        } catch (Exception exception) {
+            // Then
+            assertEquals("This order does not exist", exception.getMessage());
+        }
+    }
+
+    @Test
+    public void testAddOrder() {
+        // Given
+        OrderDb testOrderDb = getOrderDb();
+        Order newOrder = new Order("108", new Product[]{getProductDb().getProduct("102")});
+
+        // When
+        testOrderDb.addOrder(newOrder);
+
+        // Then
+        assertTrue(testOrderDb.listOrders().contains(newOrder));
+
+    }
+
+    private static OrderDb getOrderDb(){
+
+        HashMap<String, Order> testOrderHashMap = new HashMap<String, Order>(){{
+            put("1000", new Order("100", new Product[]{getProductDb().getProduct("100"), getProductDb().getProduct("101")}));
+            put("1001", new Order("101", new Product[]{getProductDb().getProduct("102"), getProductDb().getProduct("103")}));
+            put("1002", new Order("102", new Product[]{getProductDb().getProduct("104")}));
+        }};
+
+        return new OrderDb(testOrderHashMap);
+
+    }
+
+    private static ProductDb getProductDb() {
+        ArrayList<Product> testProducts = new ArrayList<Product>(List.of(
+                new Product("100", "Dress"),
+                new Product("101", "Jeans"),
+                new Product("102", "Tshirt"),
+                new Product("103", "Hoodie"),
+                new Product("104", "Socks")
+        ));
+
+        return new ProductDb(testProducts);
+    }
+
+}

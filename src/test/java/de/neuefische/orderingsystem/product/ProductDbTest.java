@@ -1,9 +1,7 @@
 package de.neuefische.orderingsystem.product;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ class ProductDbTest {
         ));
 
         // When
-        ArrayList<Product> actualProductList = testDb.getProductList();
+        ArrayList<Product> actualProductList = testDb.listProducts();
 
         // Then
         assertEquals(expectedProductList, actualProductList);
